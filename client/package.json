@@ -8,11 +8,14 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "build-css": "node-sass --include-path scss assets/scss/_main.scss static/style.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "bootstrap": "^4.3.1",
+    "node-sass": "^4.12.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
