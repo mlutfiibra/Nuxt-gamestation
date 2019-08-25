@@ -9,6 +9,9 @@ export default {
 
     return myService.get(`/products/${id}`)
   },
+  searchPrduct(query) {
+    return myService.get(`/products/search?q=${query}`)
+  },
   createProduct(payload) {
     return myService.post('/products', payload)
   },
