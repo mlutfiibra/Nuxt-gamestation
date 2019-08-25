@@ -60,57 +60,57 @@
 </template>
 
 <script>
-import api from '@/api/localapi'
+// import api from '@/api/localapi'
 
-export default {
-  data() {
-    return {
-      productForm: {
-        _id: '',
-        name: '',
-        price: '',
-        stock: '',
-        category: '',
-        detail: '',
-        picture_url: ''
-      }
-    }
-  },
-  methods: {
-    submitFormProduct() {
-      this.$emit('submit-product', this.productForm)
-    },
-    handleFileUpload(event) {
-      this.productForm.picture_url = event.target.files[0]
-    },
-    findProduct() {
-      api.defaults.headers.common['token'] = localStorage.token
+// export default {
+//   data() {
+//     return {
+//       productForm: {
+//         _id: '',
+//         name: '',
+//         price: '',
+//         stock: '',
+//         category: '',
+//         detail: '',
+//         picture_url: ''
+//       }
+//     }
+//   },
+//   methods: {
+//     submitFormProduct() {
+//       this.$emit('submit-product', this.productForm)
+//     },
+//     handleFileUpload(event) {
+//       this.productForm.picture_url = event.target.files[0]
+//     },
+//     findProduct() {
+//       api.defaults.headers.common['token'] = localStorage.token
 
-      api
-        .get(`products/${this.$route.params.id}`)
-        .then(({
-          data
-        }) => {
-          this.productForm._id = data._id
-          this.productForm.name = data.name
-          this.productForm.price = data.price
-          this.productForm.stock = data.stock
-          this.productForm.category = data.category
-          this.productForm.detail = data.detail
-          this.productForm.picture_url = data.picture_url
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    },
-    editFormProduct() {
-      this.$emit('edit-product', this.productForm)
-    }
-  },
-  mounted() {
-    this.findProduct()
-  },
-}
+//       api
+//         .get(`products/${this.$route.params.id}`)
+//         .then(({
+//           data
+//         }) => {
+//           this.productForm._id = data._id
+//           this.productForm.name = data.name
+//           this.productForm.price = data.price
+//           this.productForm.stock = data.stock
+//           this.productForm.category = data.category
+//           this.productForm.detail = data.detail
+//           this.productForm.picture_url = data.picture_url
+//         })
+//         .catch(err => {
+//           console.log(err);
+//         })
+//     },
+//     editFormProduct() {
+//       this.$emit('edit-product', this.productForm)
+//     }
+//   },
+//   mounted() {
+//     this.findProduct()
+//   },
+// }
 
 </script>
 

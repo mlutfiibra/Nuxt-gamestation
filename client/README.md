@@ -1,4 +1,4 @@
-# client
+# Gamestation
 
 > My wicked Nuxt.js project
 

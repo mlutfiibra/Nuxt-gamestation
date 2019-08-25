@@ -55,98 +55,98 @@
 </template>
 
 <script>
-  import api from '@/api/localapi'
-  import {
-    convertToRupiah
-  } from '@/helpers/convertToRupiah'
-  import {
-    mapState,
-    mapActions,
-    mapMutations
-  } from 'vuex';
+// import api from '@/api/localapi'
+// import {
+//   convertToRupiah
+// } from '@/helpers/convertToRupiah'
+// import {
+//   mapState,
+//   mapActions,
+//   mapMutations
+// } from 'vuex';
 
-  export default {
-    data() {
-      return {
-        transactions: [],
-        cities: [],
-        address: ''
-      }
-    },
-    computed: {
-      ...mapState(['user', 'carts'])
-    },
-    methods: {
-      ...mapActions(['updateUser', 'setUserData']),
-      ...mapMutations(['SET_USER_CARTS']),
-      submitUserInformation() {
-        let update = {
-          address: this.user.address,
-          phone: this.user.phone
-        }
-        this.updateUser(update)
-      },
-      fetchTransaction() {
-        api.defaults.headers.common['token'] = localStorage.token
+// export default {
+//   data() {
+//     return {
+//       transactions: [],
+//       cities: [],
+//       address: ''
+//     }
+//   },
+//   computed: {
+//     ...mapState(['user', 'carts'])
+//   },
+//   methods: {
+//     ...mapActions(['updateUser', 'setUserData']),
+//     ...mapMutations(['SET_USER_CARTS']),
+//     submitUserInformation() {
+//       let update = {
+//         address: this.user.address,
+//         phone: this.user.phone
+//       }
+//       this.updateUser(update)
+//     },
+//     fetchTransaction() {
+//       api.defaults.headers.common['token'] = localStorage.token
 
-        api
-          .get('/transactions')
-          .then(({
-            data
-          }) => {
-            this.transactions = data[0]
-          })
-          .catch(err => {
-            console.log(err);
-          })
-      },
-      convertToRupiah,
-      fetchCities() {
-        api.defaults.headers.common['key'] = 'dd4927c879c8016e2679a017eda70396'
+//       api
+//         .get('/transactions')
+//         .then(({
+//           data
+//         }) => {
+//           this.transactions = data[0]
+//         })
+//         .catch(err => {
+//           console.log(err);
+//         })
+//     },
+//     convertToRupiah,
+//     fetchCities() {
+//       api.defaults.headers.common['key'] = 'dd4927c879c8016e2679a017eda70396'
 
-        api
-          .get('https://api.rajaongkir.com/starter/city')
-          .then(cities => {
-            this.cities = cities.rajaongkir.results
-          })
-          .catch(err => {
-            console.log(err);
-          })
-      },
-      payNow() {
-        api.defaults.headers.common['token'] = localStorage.token
+//       api
+//         .get('https://api.rajaongkir.com/starter/city')
+//         .then(cities => {
+//           this.cities = cities.rajaongkir.results
+//         })
+//         .catch(err => {
+//           console.log(err);
+//         })
+//     },
+//     payNow() {
+//       api.defaults.headers.common['token'] = localStorage.token
 
-        let productId = []
-        this.carts.forEach(cart => {
-          productId.push(cart.productId)
-        })
+//       let productId = []
+//       this.carts.forEach(cart => {
+//         productId.push(cart.productId)
+//       })
 
-        let payload = {
-          userId: this.user._id,
-          productId,
-          totalPayment: this.user.totalPayment
-        }
+//       let payload = {
+//         userId: this.user._id,
+//         productId,
+//         totalPayment: this.user.totalPayment
+//       }
 
-        api
-          .post(`/transactions`, payload)
-          .then(transaction => {
-            let emptyCarts = []
-            Swal.fire(
-              'Transaction Success!',
-              'Thank you and wait for your goods to come~',
-              'success'
-            )
-            this.SET_USER_CARTS(emptyCarts)
-            this.$router.push('/')
-          })
-          .catch(err => {
-            console.log(err.response);
-          })
-      },
-      mounted() {
-        this.setUserData()
-      },
-    },
-  }
+//       api
+//         .post(`/transactions`, payload)
+//         .then(transaction => {
+//           let emptyCarts = []
+//           Swal.fire(
+//             'Transaction Success!',
+//             'Thank you and wait for your goods to come~',
+//             'success'
+//           )
+//           this.SET_USER_CARTS(emptyCarts)
+//           this.$router.push('/')
+//         })
+//         .catch(err => {
+//           console.log(err.response);
+//         })
+//     },
+//     mounted() {
+//       this.setUserData()
+//     },
+//   },
+// }
 
 </script>

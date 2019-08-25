@@ -32,68 +32,68 @@
 </template>
 
 <script>
-  import api from '@/api/localapi'
-  import {
-    convertToRupiah
-  } from '@/helpers/convertToRupiah'
+  // import api from '@/api/localapi'
+  // import {
+  //   convertToRupiah
+  // } from '@/helpers/convertToRupiah'
 
-  export default {
-    data() {
-      return {
-        products: []
-      }
-    },
-    mounted() {
-      this.fetchProducts()
-    },
-    methods: {
-      convertToRupiah,
-      fetchProducts() {
-        api
-          .get('/products')
-          .then(({
-            data
-          }) => {
-            this.products = data
-          })
-          .catch(err => {
-            console.log(err);
-          })
-      },
-      deleteProduct(id) {
-        Swal.fire({
-          title: 'Delete this product?',
-          text: "You won't be able to revert this!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.value) {
-            api
-              .delete(`/products/${id}`)
-              .then(product => {
-                Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-                )
-                this.products = this.products.filter(el => {
-                  if (el._id !== product._id) {
-                    return el
-                  }
-                })
-                this.fetchProducts()
-              })
-              .catch(err => {
-                console.log(err);
-              })
-          }
-        })
-      }
-    },
-  }
+  // export default {
+  //   data() {
+  //     return {
+  //       products: []
+  //     }
+  //   },
+  //   mounted() {
+  //     this.fetchProducts()
+  //   },
+  //   methods: {
+  //     convertToRupiah,
+  //     fetchProducts() {
+  //       api
+  //         .get('/products')
+  //         .then(({
+  //           data
+  //         }) => {
+  //           this.products = data
+  //         })
+  //         .catch(err => {
+  //           console.log(err);
+  //         })
+  //     },
+  //     deleteProduct(id) {
+  //       Swal.fire({
+  //         title: 'Delete this product?',
+  //         text: "You won't be able to revert this!",
+  //         type: 'warning',
+  //         showCancelButton: true,
+  //         confirmButtonColor: '#3085d6',
+  //         cancelButtonColor: '#d33',
+  //         confirmButtonText: 'Yes, delete it!'
+  //       }).then((result) => {
+  //         if (result.value) {
+  //           api
+  //             .delete(`/products/${id}`)
+  //             .then(product => {
+  //               Swal.fire(
+  //                 'Deleted!',
+  //                 'Your file has been deleted.',
+  //                 'success'
+  //               )
+  //               this.products = this.products.filter(el => {
+  //                 if (el._id !== product._id) {
+  //                   return el
+  //                 }
+  //               })
+  //               this.fetchProducts()
+  //             })
+  //             .catch(err => {
+  //               console.log(err);
+  //             })
+  //         }
+  //       })
+  //     }
+  //   },
+  // }
 
 </script>
 
