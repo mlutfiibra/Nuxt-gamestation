@@ -5,8 +5,8 @@ export const state = () => ({
 })
 
 export const mutations = {
-  SET_CARTS(state, events) {
-    state.events = events
+  SET_CARTS(state, carts) {
+    state.carts = carts
   },
   ADD_CARTS(state, payload) {
     state.carts.push(payload)

@@ -88,7 +88,6 @@ export default {
   },
   watch: {
     quantity() {
-      // this.errorMessage = ''
       if (this.quantity > this.product.stock) {
         this.quantity = this.product.stock
         this.errorMessage = 'Out of stock'
