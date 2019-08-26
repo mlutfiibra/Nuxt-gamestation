@@ -12,7 +12,7 @@ export default {
   getProductsByCategory(category) {
     return myService.get(`/products/category?category=${category}`)
   },
-  searchPrduct(productName) {
+  searchProduct(productName) {
     return myService.get(`/products/search?q=${productName}`)
   },
   createProduct(payload) {

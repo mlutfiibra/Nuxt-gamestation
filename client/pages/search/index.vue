@@ -41,29 +41,34 @@
     data() {
       return {
         searchResult: [],
-        searchQuery: ''
+        searchQuery: '',
+        errorMessage: ''
       }
     },
     methods: {
       convertToRupiah,
-      search() {
-        ProductService
-          .searchPrduct(this.searchQuery)
-          .then(({
-            data
-          }) => {
-            this.searchResult = data
-          })
-          .catch(err => {
-            console.log(err);
-          })
+      async search() {
+        try{
+          const {data} = await ProductService.searchProduct(this.searchQuery)
+          this.searchResult = data
+        }catch(err){
+          this.errorMessage = 'Failed to receive data, check your internet connection'
+        }
       }
     },
     components: {
       Card
     },
+    async asyncData({ query, error }) {
+      try {
+        return {
+          searchQuery : query.q
+        }
+      }catch(e) {
+        error({ statusCode: 503, message: `Error: ${e}` })
+      }
+    },
     mounted() {
-      this.searchQuery = this.$route.query.q
       this.search()
     },
     watch: {

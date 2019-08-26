@@ -77,6 +77,11 @@ export default {
       casualGames: []
     }
   },
+  head() { // <-- property used by vue-meta to add header tags
+    return {
+      title: 'Gamestation - Your one stop game solution', // <-- For our title tag
+    }
+  },
   computed: {
     getUserRole() {
       return this.$store.getters.getUserRole

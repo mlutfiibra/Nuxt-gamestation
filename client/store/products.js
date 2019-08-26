@@ -23,9 +23,7 @@ export const actions = {
     try{
       const {data} = await ProductService.getProducts()
       commit('SET_TOTAL_PAYMENT', totalPayment)
-      commit('SET_PRODUCTS', data)
-      
-      return data
+      commit('SET_PRODUCTS', data)      
     }catch(err) {
       console.log(err);
       commit('SET_ERROR_MESSAGE', `Failed to add to cart: ${err}`)
@@ -54,9 +52,7 @@ export const actions = {
       const {data} = await ProductService.removeProduct(id)
       commit('SET_TOTAL_PAYMENT', totalPayment)
       commit('REMOVE_FROM_USER_CARTS', data._id)
-      commit('SET_LOADING', false)
-      
-      return data
+      commit('SET_LOADING', false)      
     }catch(err) {
         console.log(err.response);
     }finally{
