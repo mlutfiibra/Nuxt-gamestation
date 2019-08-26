@@ -17,6 +17,15 @@ export default {
   components: {
     Navbar,
     Footer
-  }
+  },
+  mounted() {
+    if(localStorage.token) {
+      this.$store.commit('SET_IS_LOGGED_IN', true)
+      this.$store.dispatch('users/fetchUserData')
+      this.$store.state.token = localStorage.token
+    }else{
+      this.$store.commit('SET_USER_DATA', {})
+    }
+  },
 }
 </script>

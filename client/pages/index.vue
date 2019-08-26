@@ -82,10 +82,10 @@ export default {
   },
   computed: {
     getUserRole() {
-      return this.$store.getters.getUserRole
+      return this.$store.state.users.user.role
     },
     isAdministrator() {
-      return this.$store.getters.isAdministrator
+      return this.$store.state.users.isAdministrator
     }
   },
   methods: {
@@ -115,13 +115,13 @@ export default {
         })
     },
   },
-  async fetch({ store, error }) {
-    try {
-      await store.dispatch('events/fetchEvents')
-    }catch(e) {
-      error({ statusCode: 503, message: 'Unable to fetch events at this time, please try again' })
-    }
-  },
+  // async fetch({ store, error }) {
+  //   try {
+  //     await store.dispatch('events/fetchEvents')
+  //   }catch(e) {
+  //     error({ statusCode: 503, message: 'Unable to fetch events at this time, please try again' })
+  //   }
+  // },
   mounted() {
     this.fetchProductByCategory()
   }

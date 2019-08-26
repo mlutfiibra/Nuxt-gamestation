@@ -120,15 +120,17 @@
       }
     },
     computed: {
-      ...mapState(['isAdministrator']),
       user() {
-        return this.$store.getters.getUser
+        return this.$store.state.users.user
       },
       cartLength() {
-        return this.$store.getters.cartLength
+        return this.$store.state.carts.carts.length
       },
       isLoggedIn() {
-        return this.$store.getters.isLoggedIn
+        return this.$store.state.users.isLoggedIn
+      },
+      isAdministrator() {
+        return this.$store.state.users.isAdministrator
       },
       userId() {
         return localStorage.id
@@ -136,11 +138,11 @@
     },
     mounted() {
       if (localStorage.token) {
-        this.getCart()
+        this.fetchCarts()
       }
     },
     methods: {
-      ...mapActions(['getCart']),
+      ...mapActions(['fetchCarts']),
       clickLogout() {
         this.$emit('click-logout')
       },

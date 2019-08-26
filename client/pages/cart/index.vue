@@ -40,54 +40,6 @@
   </div>
 </template>
 
-<script>
-// import api from '@/api/localapi'
-// import {
-//   convertToRupiah
-// } from '@/helpers/convertToRupiah.js'
-// import {
-//   mapActions,
-//   mapState
-// } from 'vuex';
-
-// export default {
-//   computed: {
-//     user() {
-//       return this.$store.getters.getUser
-//     },
-//     carts() {
-//       return this.$store.getters.getUserCarts
-//     }
-//   },
-//   mounted() {
-//     this.getCart()
-//   },
-//   methods: {
-//     convertToRupiah,
-//     ...mapActions(['deleteFromCart', 'getCart']),
-//     deleteCart(id) {
-//       Swal.fire({
-//         title: 'Remove from carts?',
-//         text: "You won't be able to revert this!",
-//         type: 'warning',
-//         showCancelButton: true,
-//         confirmButtonColor: '#3085d6',
-//         cancelButtonColor: '#d33',
-//         confirmButtonText: 'Yes, delete it!'
-//       }).then((result) => {
-//         if (result.value) {
-//           this.deleteFromCart(id)
-//         }
-//       })
-//     },
-//     goToCheckoutPage() {
-//       this.$router.push('/checkout')
-//     }
-//   },
-// }
-
-</script>
-
 <style scope>
   .cart--delete {
     color: #dc3545;

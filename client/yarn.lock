@@ -5041,6 +5041,13 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
+nuxt-sweetalert2@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/nuxt-sweetalert2/-/nuxt-sweetalert2-1.0.0.tgz#cbfd10d6ca7c4a2b6e11e79a1987fb4849c749b4"
+  integrity sha512-1BZlV2ddCj2LROmPcgkRV/K9O8+pVD/Z5sisbvhSiBDl6ynepfKDfWypo2P5EOirxst1H40EfkxyFuIKuqAY9g==
+  dependencies:
+    sweetalert2 "7.x"
+
 nuxt@^2.0.0:
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.9.1.tgz#6a9ce48d03b9e6f82919d4e66051b3d49b7aee36"
@@ -7127,7 +7134,12 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-sweetalert2@8.x:
+sweetalert2@7.x:
+  version "7.33.1"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.33.1.tgz#7e3534d2c2962f875f419cfea5d75ee526d65cd4"
+  integrity sha512-69KYtyhtxejFG0HDb8aVhAwbpAWPSTZwaL5vxDHgojErD2KeFxTmRgmkbiLtMC8UdTFXRmvTPtZTF4459MUb7w==
+
+sweetalert2@8.x, sweetalert2@^8.16.3:
   version "8.16.3"
   resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-8.16.3.tgz#9b06566b2a203f7ee678a60885f10afccfcc6952"
   integrity sha512-GfnVLht6OJGUcKnrIILaMbjhn2LvFDIG2MchUviWTa0vJCZoX9cfjWyZsOrOh+g/jRN/+D6V8UXXZJ6rRcN82w==

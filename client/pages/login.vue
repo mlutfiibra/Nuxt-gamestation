@@ -44,46 +44,64 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_IS_LOGGED_IN', 'SET_IS_ADMINISTRATOR_TRUE', 'SET_USER_DATA']),
-    ...mapActions(['getCart']),
-    onSubmitLogin() {
+    ...mapActions(['fetchCarts']),
+    async onSubmitLogin() {
       const {
         email,
         password
       } = this.loginForm;
+      try{
+        const data = await this.$store.dispatch('users/login', {email, password});
 
-      AuthService.login({
-          email,
-          password
-        })
-        .then(({
-          data
-        }) => {
-          if (data.role === 'administrator') {
-            this.SET_IS_ADMINISTRATOR_TRUE()
-          }
-          Swal.fire(
-            `Welcome ${data.name}`,
-            '',
-            'success'
-          )
-          this.SET_IS_LOGGED_IN(true)
-          this.SET_USER_DATA(data)
-          this.token = data.token
-          localStorage.token = data.token
-          localStorage.id = data.id
-          this.getCart()
+        Swal.fire(
+          `Welcome ${data.name}`,
+          '',
+          'success'
+        )
+        this.token = data.token
+        localStorage.token = data.token
+        localStorage.id = data.id
+        this.fetchCarts()
 
-          this.loginForm = {}
+        this.loginForm = {}
 
-          this.$router.push('/')
-        })
-        .catch(err => {
-          console.log(err);
-          Swal.fire({
-            type: 'error',
-            title: `${err.response.data.message}`
-          })
-        })
+        this.$router.push('/')
+      }catch(err){
+        console.log(err)
+      }
+      // AuthService.login({
+      //     email,
+      //     password
+      //   })
+      //   .then(({
+      //     data
+      //   }) => {
+      //     if (data.role === 'administrator') {
+      //       this.SET_IS_ADMINISTRATOR_TRUE()
+      //     }
+      //     Swal.fire(
+      //       `Welcome ${data.name}`,
+      //       '',
+      //       'success'
+      //     )
+      //     this.SET_IS_LOGGED_IN(true)
+      //     this.SET_USER_DATA(data)
+      //     this.token = data.token
+      //     localStorage.token = data.token
+      //     localStorage.id = data.id
+      //     this.fetchCarts()
+
+      //     this.loginForm = {}
+
+      //     this.$router.push('/')
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //     Swal.fire({
+      //       type: 'error',
+      //       title: `${err.response.data.message}`
+      //     })
+      //   })
     }
   },
   data() {
