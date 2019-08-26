@@ -36,35 +36,35 @@
 </template>
 
 <script>
-// import api from '@/api/localapi'
-// import { convertToRupiah } from '@/helpers/convertToRupiah'
-// import { mapState } from 'vuex';
+import TransactionService from '@/services/TransactionService'
+import { convertToRupiah } from '@/helpers/convertToRupiah'
+import { mapState } from 'vuex';
 
-// export default {
-//   data() {
-//     return {
-//       transactions:[]
-//     }
-//   },
-//   mounted() {
-//     this.fetchTransactions()
-//   },
-//   methods: {
-//     fetchTransactions() {
-//       api.defaults.headers.common['token'] = localStorage.token 
+export default {
+  data() {
+    return {
+      transactions:[]
+    }
+  },
+  mounted() {
+    this.fetchTransactions()
+  },
+  methods: {
+    fetchTransactions() {
+      api.defaults.headers.common['token'] = localStorage.token 
 
-//       api
-//       .get('/transactions')
-//       .then(({data}) => {
-//           this.transactions = data
-//       })
-//       .catch(err => {
-//           console.log(err.response);
-//       })
-//     },
-//     convertToRupiah
-//   },
-// }
+      api
+      .get('/transactions')
+      .then(({data}) => {
+          this.transactions = data
+      })
+      .catch(err => {
+          console.log(err.response);
+      })
+    },
+    convertToRupiah
+  },
+}
 </script>
 
 <style>

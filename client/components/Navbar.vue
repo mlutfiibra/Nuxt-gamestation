@@ -60,10 +60,8 @@
                 <span class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">Dashboard Admin</span>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <router-link class="dropdown-item" :to="{ name : 'admin-orders' }">Order List</router-link>
-                  <router-link class="dropdown-item" :to="{ name : 'admin-list-product' }">Product List</router-link>
-                  <router-link class="dropdown-item" :to="{ name : 'admin-create-product' }">Create Product
-                  </router-link>
+                  <router-link class="dropdown-item" to="/admin/product">Products</router-link>
+                  <router-link class="dropdown-item" to="/admin/order">Orders</router-link>
                   <div class="dropdown-divider"></div>
                   <span class="dropdown-item" @click="clickLogout">Logout</span>
                 </div>
