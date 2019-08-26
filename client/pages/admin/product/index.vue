@@ -23,7 +23,7 @@
             </td>
             <td>{{convertToRupiah(product.price)}}</td>
             <td>
-              <router-link :to="`/admin/edit-product/${product._id}`"><span class="btn-edit">Edit </span> </router-link>|
+              <router-link :to="`/admin/product/edit/${product._id}`"><span class="btn-edit">Edit </span> </router-link>|
               <span @click="deleteProduct(product._id)" class="color-red cursor-pointer">Delete</span>
             </td>
         </tr>

@@ -2,8 +2,7 @@
   <div class="form-black mb-5" style="margin-top: 8em;">
     <div class="text-center mb-3 mt-5">
       <h3>Add Product</h3>
-      <router-link 
-          :to="{'name': 'admin-list-product'}">
+      <router-link to="/admin/product">
           List Product
       </router-link>
     </div>
