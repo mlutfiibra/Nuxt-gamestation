@@ -55,14 +55,12 @@
 import ProductService from '@/services/ProductService'
 import Carousel from '@/components/Carousel.vue'
 import CategoryList from '@/components/CategoryList.vue'
-import Card from '@/components/Card.vue'
 import Voucher from '@/components/Voucher.vue'
 
 export default {
   name: 'Home',
   components: {
     Carousel,
-    Card,
     Voucher,
     CategoryList
   },
