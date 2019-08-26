@@ -24,12 +24,14 @@ export default {
   */
   css: [
     'node_modules/bootstrap/dist/css/bootstrap.min.css',
+    '@fortawesome/fontawesome-svg-core/styles.css',
     'static/style.css'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/fontawesome.js'
   ],
   /*
   ** Nuxt.js dev-modules

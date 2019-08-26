@@ -83,21 +83,23 @@
         </div>
       </div>
       <div class="sub-nav">
-        <div>
-          <div class="input-group">
-            <form @submit.prevent="submitSearchProduct" style="display: flex;">
-              <div class="input-group">
-                <input class="form-control" type="search" placeholder="search in gamestation"
-                  aria-label="search in gamestation" v-model.trim="searchValue">
-                <div class="input-group-append">
-                  <button class="btn btn-light" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
-                </div>
+        <div class="input-group">
+          <form @submit.prevent="submitSearchProduct" style="display: flex;">
+            <div class="input-group">
+              <input 
+                class="form-control" 
+                type="search" 
+                placeholder="search in gamestation"
+                aria-label="search in gamestation" 
+                v-model.trim="searchValue"
+              >
+              <div class="input-group-append">
+                <button class="btn btn-light" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
-
     </div>
     <div style="margin-bottom: 5em;">&nbsp;</div>
   </nav>

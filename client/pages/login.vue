@@ -4,21 +4,20 @@
       <div class="col-md-6"></div>
       <div class="col-md-6">
         <div class="auth-container">
-          <h4 class="mb-3">Login</h4>
-
+          <h4 class="text-center mb-3">Login</h4>
           <form @submit.prevent="onSubmitLogin">
             <div class="form-group">
-              <input id="user-email" v-model="loginForm.email" type="email" placeholder="email" class="form-group"
+              <input id="user-email" v-model="loginForm.email" type="email" placeholder="email" class="form-control"
                 aria-autocomplete="off" required />
             </div>
 
             <div class="form-group">
-              <input id="user-password" v-model="loginForm.password" type="password" placeholder="password" class="form-group"
+              <input id="user-password" v-model="loginForm.password" type="password" placeholder="password" class="form-control"
                 required />
             </div>
 
             <div class="text-center">
-              <button type="submit" class="btn btn-success">Login</button>
+              <button type="submit" class="btn btn-success btn-block">Login</button>
               <div> or </div>
               <router-link :to="{ name: 'register' }">Create account</router-link>
             </div>
