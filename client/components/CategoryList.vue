@@ -11,7 +11,6 @@
           <Card :key="index" :data="category" />
         </router-link>
       </div>
-
     </div>
   </div>
 </template>
