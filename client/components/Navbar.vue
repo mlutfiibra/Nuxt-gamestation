@@ -142,7 +142,7 @@
     methods: {
       ...mapActions(['fetchCarts']),
       clickLogout() {
-        this.$emit('click-logout')
+        this.$store.dispatch('users/logout')
       },
       submitSearchProduct() {
         if (this.searchValue.trim()) {

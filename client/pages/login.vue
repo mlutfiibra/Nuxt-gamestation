@@ -43,7 +43,7 @@ export default {
     ...mapState(['user'])
   },
   methods: {
-    ...mapMutations(['SET_IS_LOGGED_IN', 'SET_IS_ADMINISTRATOR_TRUE', 'SET_USER_DATA']),
+    ...mapMutations(['SET_IS_LOGGED_IN', 'SET_USER_DATA']),
     ...mapActions(['fetchCarts']),
     async onSubmitLogin() {
       const {
@@ -69,39 +69,6 @@ export default {
       }catch(err){
         console.log(err)
       }
-      // AuthService.login({
-      //     email,
-      //     password
-      //   })
-      //   .then(({
-      //     data
-      //   }) => {
-      //     if (data.role === 'administrator') {
-      //       this.SET_IS_ADMINISTRATOR_TRUE()
-      //     }
-      //     Swal.fire(
-      //       `Welcome ${data.name}`,
-      //       '',
-      //       'success'
-      //     )
-      //     this.SET_IS_LOGGED_IN(true)
-      //     this.SET_USER_DATA(data)
-      //     this.token = data.token
-      //     localStorage.token = data.token
-      //     localStorage.id = data.id
-      //     this.fetchCarts()
-
-      //     this.loginForm = {}
-
-      //     this.$router.push('/')
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //     Swal.fire({
-      //       type: 'error',
-      //       title: `${err.response.data.message}`
-      //     })
-      //   })
     }
   },
   data() {

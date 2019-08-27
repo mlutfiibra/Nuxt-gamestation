@@ -47,8 +47,8 @@ export const mutations = {
   SET_IS_LOGGED_IN(state, payload) {
     state.isLoggedIn = payload
   },
-  SET_IS_ADMINISTRATOR_TRUE(state) {
-    state.isAdministrator = true
+  SET_IS_ADMINISTRATOR(state, isAdmin) {
+    state.isAdministrator = isAdmin
   },
   SET_USER_DATA(state, payload) {
     if(payload) {
@@ -71,7 +71,7 @@ export const actions = {
       const {data} = await AuthService.login(payload)
 
       if(payload==='administrator') {
-        commit("SET_IS_ADMINISTRATOR_TRUE")
+        commit("SET_IS_ADMINISTRATOR", true)
       }
       commit('SET_IS_LOGGED_IN', true)
       commit('SET_USER_DATA', data)
@@ -82,6 +82,18 @@ export const actions = {
     }finally{
       // commit('SET_LOADING', false)      
     }
+  },
+  logout({commit}){
+    Swal.fire(
+      `Logout`,
+      'see you around :)',
+      'success'
+    )
+    localStorage.clear()
+    commit('SET_IS_LOGGED_IN', false)
+    commit("SET_IS_ADMINISTRATOR", false)
+    commit("SET_DEFAULT_STATE", false)
+    this.$router.push('/')
   },
   async fetchUserData({ commit }) {
     const id = localStorage.id
