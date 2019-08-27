@@ -18,6 +18,10 @@ export default {
   createProduct(payload) {
     return myService.post('/products', payload)
   },
+  editProduct(payload) {
+    myService.defaults.headers.common['token'] = localStorage.token
+    return myService.put(`/products/${payload._id}`, payload)
+  },
   removeProduct(id) {
     return myService.delete(`/products/${id}`)
   }

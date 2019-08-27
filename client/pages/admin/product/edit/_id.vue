@@ -99,7 +99,7 @@ export default {
       }
     },
     editFormProduct() {
-      this.$emit('edit-product', this.productForm)
+      this.$store.dispatch('products/editProduct', this.productForm)
     }
   },
   mounted() {

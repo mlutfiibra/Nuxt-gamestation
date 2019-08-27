@@ -33,13 +33,22 @@ export const actions = {
   },
   async addProduct({ commit }, payload) {
     commit('SET_LOADING', true)
-
     try{
       const {data} = await CartService.createProduct(payload)
       commit('PUSH_TO_USER_CARTS', data)
       commit('SET_LOADING', false)
     }catch(err) {
       console.log(err.response);
+    }finally{
+      commit('SET_LOADING', false)
+    }
+  },
+  async editProduct({commit}, payload) {
+    commit('SET_LOADING', true)
+    try{
+      const {data} = await ProductService.editProduct(payload.id, payload)
+    }catch(err){
+      console.log(err)
     }finally{
       commit('SET_LOADING', false)
     }
