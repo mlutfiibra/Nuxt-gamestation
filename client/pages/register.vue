@@ -51,12 +51,20 @@
             `You successfully register ${user.data.name}!`,
             'success'
           )
+          this.setDefaultRegisterForm()
           this.$router.push('/')
-          this.register = {}
         }catch(err){
           console.log(err.response)
         }
       },
+      setDefaultRegisterForm() {
+        this.register = {
+          name: '',
+          email: '',
+          password: '',
+          role: 'customer'
+        }
+      }
     },
     data() {
       return {
@@ -69,12 +77,7 @@
       }
     },
     mounted() {
-      this.register = {
-        name: '',
-        email: '',
-        password: '',
-        role: 'customer'
-      }
+      this.setDefaultRegisterForm()
     },
   }
 
