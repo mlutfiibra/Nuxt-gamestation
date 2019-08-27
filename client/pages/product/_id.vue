@@ -57,7 +57,9 @@
 </template>
 
 <script>
-import ProductService from '@/services/ProductService'
+import ProductService from '@/services/ProductService';
+import CartService from '@/services/CartService';
+
 import {
   convertToRupiah
 } from '@/helpers/convertToRupiah'
@@ -80,7 +82,7 @@ export default {
   computed: {
     ...mapState(['user']),
     isAdministrator() {
-      return this.$store.getters.isAdministrator
+      return this.$store.state.users.user.role
     }
   },
   mounted() {
@@ -102,19 +104,14 @@ export default {
   methods: {
     ...mapActions(['createCart']),
     convertToRupiah,
-    fetchDetailProduct() {
-
-    ProductService
-      .getProduct(this.$route.params.id)
-      .then(({
-        data
-      }) => {
+    async fetchDetailProduct() {
+      try{
+        const {data} = await ProductService.getProduct(this.$route.params.id)
         this.product = data
         this.totalPrice = this.quantity * Number(this.product.price)
-      })
-      .catch(err => {
+      }catch(err){
         console.log(err);
-      })
+      }
     },
     buyItem(productId) {
       if (localStorage.token) {
@@ -129,7 +126,7 @@ export default {
           '',
           'success'
         )
-        this.createCart(payload)
+        CartService.addCart(payload)
       } else {
         this.$router.push('/login')
       }
