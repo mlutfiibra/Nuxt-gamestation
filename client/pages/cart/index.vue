@@ -20,7 +20,7 @@
           </div>
           <div class="col-md-2">
             <div class="card-body">
-              <div class="cart--delete" @click="deleteCart(cart._id)">
+              <div class="cart--delete" @click="removeCart(cart._id)">
                 Cancel Order
               </div>
             </div>
@@ -49,18 +49,18 @@
   export default {
     computed: {
       user() {
-        return this.$store.getters.users.getUser
+        return this.$store.state.user
       },
       carts() {
         return this.$store.state.carts.carts
       }
     },
     mounted() {
-      this.$store.dispatch('fetchCarts')
+      this.$store.dispatch('carts/fetchCarts')
     },
     methods: {
       convertToRupiah,
-      deleteCart(id) {
+      removeCart(id) {
         Swal.fire({
           title: 'Remove from carts?',
           text: "You won't be able to revert this!",
@@ -72,7 +72,7 @@
         }).then(async (result) => {
           if (result.value) {
             try{
-              await this.$store.dispatch('deleteCart', id)
+              await this.$store.dispatch('carts/deleteCart', id)
             }catch(err){
               console.log(err)
             }

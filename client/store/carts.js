@@ -59,11 +59,11 @@ export const actions = {
     })
   },
   async deleteCart({ commit }, id) {
-    let totalPayment = this.state.user.totalPayment
+    let totalPayment = this.state.users.user.totalPayment
     commit('SET_LOADING', true)
 
     try{
-      const {data} = await CartService.delete(`/carts/${id}`)
+      const {data} = await CartService.removeCart(id)
       totalPayment-=data.totalPrice
       commit('SET_TOTAL_PAYMENT', totalPayment)
       commit('REMOVE_FROM_USER_CARTS', data._id)
