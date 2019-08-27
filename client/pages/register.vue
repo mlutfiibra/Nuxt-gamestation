@@ -5,7 +5,7 @@
       <div class="col-md-6">
         <div class="auth-container">
           <h4 class="text-center mb-3">Register</h4>
-          <div @submit.prevent="onSubmitRegister">
+          <form @submit.prevent="onSubmitRegister">
             <div class="form-group">
               <input class="form-control" v-model="register.name" type="text" placeholder="Input your name" autocomplete="off"
                 aria-autocomplete="off" required />
@@ -24,7 +24,7 @@
               <button type="submit" class="btn btn-success btn-block">Register</button>
               <router-link :to="{ name: 'login' }">Login</router-link>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -32,12 +32,31 @@
 </template>
 
 <script>
+  import AuthService from '@/services/AuthService'
+
   export default {
     name: 'register',
     methods: {
-      onSubmitRegister() {
-        this.$emit('register', this.register)
-      }
+      async onSubmitRegister() {
+        const {
+          name,
+          email,
+          password
+        } = this.register;
+
+        try{
+          const user = await AuthService.register({name, email, password})
+          Swal.fire(
+            'Success!',
+            `You successfully register ${user.data.name}!`,
+            'success'
+          )
+          this.$router.push('/')
+          this.register = {}
+        }catch(err){
+          console.log(err.response)
+        }
+      },
     },
     data() {
       return {
