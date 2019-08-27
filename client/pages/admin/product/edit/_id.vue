@@ -77,9 +77,6 @@ export default {
     }
   },
   methods: {
-    submitFormProduct() {
-      this.$emit('submit-product', this.productForm)
-    },
     handleFileUpload(event) {
       this.productForm.picture_url = event.target.files[0]
     },

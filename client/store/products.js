@@ -32,13 +32,26 @@ export const actions = {
     }
   },
   async addProduct({ commit }, payload) {
-    commit('SET_LOADING', true)
+    // commit('SET_LOADING', true)
+    const { name, price, stock, category, detail, picture_url } = payload
+    let formData = new FormData()
+    
+    formData.append('name', name)
+    formData.append('price', price)
+    formData.append('stock', stock)
+    formData.append('category', category)
+    formData.append('detail', detail)
+    
+    if(payload.picture_url) {
+      formData.append('picture_url', picture_url)
+    }
+    
     try{
-      const {data} = await CartService.createProduct(payload)
-      commit('PUSH_TO_USER_CARTS', data)
-      commit('SET_LOADING', false)
+      // commit('SET_LOADING', false)
+      const {data} = await ProductService.createProduct(formData)
+      commit('ADD_PRODUCT', data)
     }catch(err) {
-      console.log(err.response);
+      console.log(err);
     }finally{
       commit('SET_LOADING', false)
     }

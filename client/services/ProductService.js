@@ -16,6 +16,7 @@ export default {
     return myService.get(`/products/search?q=${productName}`)
   },
   createProduct(payload) {
+    myService.defaults.headers.common['token'] = localStorage.token
     return myService.post('/products', payload)
   },
   editProduct(payload) {
