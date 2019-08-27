@@ -4,6 +4,12 @@ export const state = () => ({
   carts: []
 })
 
+export const getters = {
+  getUserCarts: state => {
+    return state.carts
+  }
+}
+
 export const mutations = {
   SET_CARTS(state, carts) {
     state.carts = carts

@@ -82,7 +82,7 @@ export default {
   computed: {
     ...mapState(['user']),
     isAdministrator() {
-      return this.$store.state.users.user.role
+      return this.$store.state.users.isAdministrator
     }
   },
   mounted() {

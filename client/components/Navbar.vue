@@ -32,7 +32,7 @@
           <div v-if="!isAdministrator" class="d-flex">
             <ul class="navbar-nav">
               <li class="nav-item" style="width: 40px; align-self: center;">
-                <router-link to="/carts" style="color: #fff;">
+                <router-link to="/cart" style="color: #fff;">
                   <div class="cart">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="count">{{cartLength}}</span>

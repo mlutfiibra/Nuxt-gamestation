@@ -23,9 +23,6 @@ export const getters = {
   getUserRole: state => {
     return state.user.role
   },
-  getUserCarts: state => {
-    return state.carts
-  },
   cartLength: state => {
     return state.carts ? state.carts.length : 0
   },

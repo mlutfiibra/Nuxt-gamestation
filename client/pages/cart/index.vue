@@ -40,6 +40,53 @@
   </div>
 </template>
 
+<script>
+  import CartService from '@/services/CartService'
+  import {
+    convertToRupiah
+  } from '@/helpers/convertToRupiah.js'
+
+  export default {
+    computed: {
+      user() {
+        return this.$store.getters.users.getUser
+      },
+      carts() {
+        return this.$store.state.carts.carts
+      }
+    },
+    mounted() {
+      this.$store.dispatch('fetchCarts')
+    },
+    methods: {
+      convertToRupiah,
+      deleteCart(id) {
+        Swal.fire({
+          title: 'Remove from carts?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+          if (result.value) {
+            try{
+              await this.$store.dispatch('deleteCart', id)
+            }catch(err){
+              console.log(err)
+            }
+          }
+        })
+      },
+      goToCheckoutPage() {
+        this.$router.push('/checkout')
+      }
+    },
+  }
+
+</script>
+
 <style scope>
   .cart--delete {
     color: #dc3545;
