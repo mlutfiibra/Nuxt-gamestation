@@ -101,7 +101,7 @@ export const actions = {
     // commit('SET_LOADING', true)
     if(id) {
       try{
-        const {data} = await UserService.setUserData(id)
+        const {data} = await UserService.getUserData(id)
         commit("SET_USER_DATA", data)
       }catch(err){
         console.log(err);
