@@ -1,10 +1,7 @@
-import UserService from '@/services/UserService'
+import UserService from '@/services/UserService';
 import AuthService from '~/services/AuthService';
 
 export const state = () => ({
-  token: '',
-  isLoggedIn: false,
-  isAdministrator: false,
   user: {
     id:'',
     name:'',
@@ -14,6 +11,9 @@ export const state = () => ({
     phone: null,
     totalPayment: 0
   },
+  isLoggedIn: false,
+  isAdministrator: false,
+  token: ''
 })
 
 export const getters = {
@@ -48,12 +48,15 @@ export const mutations = {
     state.isAdministrator = isAdmin
   },
   SET_USER_DATA(state, payload) {
+    console.log('set user ', state)
     if(payload) {
       state.user=payload
       state.isLoggedIn=true
 
       if(payload.role==='administrator') {
         state.isAdministrator = true
+      }else{
+        state.isAdministrator = false
       }
     }else{
       state.user = {}
@@ -69,6 +72,8 @@ export const actions = {
 
       if(payload==='administrator') {
         commit("SET_IS_ADMINISTRATOR", true)
+      }else{
+        commit("SET_IS_ADMINISTRATOR", false)
       }
       commit('SET_IS_LOGGED_IN', true)
       commit('SET_USER_DATA', data)
