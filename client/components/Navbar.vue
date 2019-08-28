@@ -136,11 +136,10 @@
     },
     mounted() {
       if (localStorage.token) {
-        this.fetchCarts()
+        this.$store.dispatch('carts/fetchCarts')
       }
     },
     methods: {
-      ...mapActions(['fetchCarts']),
       clickLogout() {
         this.$store.dispatch('users/logout')
       },

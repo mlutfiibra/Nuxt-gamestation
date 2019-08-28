@@ -1,9 +1,5 @@
 import ProductService from '@/services/ProductService'
 
-export const state = () => ({
-  products: []
-})
-
 export const mutations = {
   GET_PRODUCTS(state, events) {
     state.products = events

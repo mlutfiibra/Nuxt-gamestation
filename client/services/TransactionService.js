@@ -1,7 +1,12 @@
 import myService from '.'
 
 export default {
-  getTransactions() {
+  fetchTransactions() {
+    myService.defaults.headers.common['token'] = localStorage.token
+
+    return myService.get(`/transactions`)
+  },
+  getUserTransactions() {
     myService.defaults.headers.common['token'] = localStorage.token
 
     return myService.get(`/transactions/user-transaction`)

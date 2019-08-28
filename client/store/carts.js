@@ -1,9 +1,5 @@
 import CartService from '@/services/CartService'
 
-export const state = () => ({
-  carts: []
-})
-
 export const getters = {
   getUserCarts: state => {
     return state.carts
@@ -22,6 +18,10 @@ export const mutations = {
   },
   EMPTY_CARTS(state) {
     state.carts = []
+  },
+  SET_USER_TOTAL_PAYMENT(state, totalPayment) {
+    // console.log(state)
+    // state.users.user.totalPayment=totalPayment
   }
 }
 
@@ -34,7 +34,7 @@ export const actions = {
       data.forEach(cart => {
         totalPayment+=cart.totalPrice
       })
-      commit('SET_TOTAL_PAYMENT', totalPayment)
+      commit('SET_USER_TOTAL_PAYMENT', totalPayment)
       commit('SET_CARTS', data)
       
       return data
@@ -65,8 +65,8 @@ export const actions = {
     try{
       const {data} = await CartService.removeCart(id)
       totalPayment-=data.totalPrice
-      commit('SET_TOTAL_PAYMENT', totalPayment)
-      commit('REMOVE_FROM_USER_CARTS', data._id)
+      commit('SET_USER_TOTAL_PAYMENT', totalPayment)
+      commit('REMOVE_CARTS', data._id)
       commit('SET_LOADING', false)
       
       return data

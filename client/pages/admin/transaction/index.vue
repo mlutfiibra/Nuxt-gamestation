@@ -52,7 +52,7 @@ export default {
   methods: {
     async fetchTransactions() {
       try{
-        const {data} = await TransactionService.getTransactions()
+        const {data} = await TransactionService.fetchTransactions()
         this.transactions = data
       }catch(err){
         console.log(err.response);
