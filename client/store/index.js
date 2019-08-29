@@ -14,3 +14,5 @@ export const state = () => ({
   products: [],
   loading: false
 })
+
+export const SET_LOADING = (state, condition) => state.loading = condition

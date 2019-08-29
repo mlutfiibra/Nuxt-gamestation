@@ -126,7 +126,7 @@ export default {
           '',
           'success'
         )
-        CartService.addCart(payload)
+        this.$store.dispatch('carts/createCart', payload)
       } else {
         this.$router.push('/login')
       }

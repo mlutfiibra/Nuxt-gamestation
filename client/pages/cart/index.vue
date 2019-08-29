@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
   import CartService from '@/services/CartService'
   import {
     convertToRupiah
@@ -53,15 +54,24 @@
 
   export default {
     computed: {
-      user() {
-        return this.$store.state.user
-      },
-      carts() {
-        return this.$store.state.carts ? this.$store.state.carts.carts : []
-      }
+      ...mapState({
+        user: state => state.users.user,
+        carts: state => state.carts.carts
+      })
     },
     mounted() {
-      this.$store.dispatch('carts/fetchCarts')
+      
+    },
+    async fetch({ store, error, params }) {
+
+      try {
+        await store.dispatch('carts/fetchCarts')
+      } catch (e) {
+        error({
+          statusCode: 503,
+          message: 'Unable to fetch carts'
+        })
+      }
     },
     methods: {
       convertToRupiah,

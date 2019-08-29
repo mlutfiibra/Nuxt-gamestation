@@ -1,4 +1,5 @@
 import CartService from '@/services/CartService'
+import {SET_LOADING} from '.'
 
 export const getters = {
   getUserCarts: state => {
@@ -13,7 +14,7 @@ export const mutations = {
   ADD_CARTS(state, payload) {
     state.carts.push(payload)
   },
-  REMOVE_CARTS(state, id) {
+  REMOVE_CART(state, id) {
     state.carts = state.carts.filter(cart => cart._id !== id)
   },
   EMPTY_CARTS(state) {
@@ -22,7 +23,11 @@ export const mutations = {
   SET_USER_TOTAL_PAYMENT(state, totalPayment) {
     // console.log(state)
     // state.users.user.totalPayment=totalPayment
-  }
+  },
+  PUSH_TO_USER_CARTS(state, cart) {
+    state.carts.push(cart)
+  },
+  SET_LOADING
 }
 
 export const actions = {
@@ -35,28 +40,22 @@ export const actions = {
         totalPayment+=cart.totalPrice
       })
       commit('SET_USER_TOTAL_PAYMENT', totalPayment)
-      commit('SET_CARTS', data)
-      
-      return data
+      commit('SET_CARTS', data)      
     }catch(err) {
       console.log(err);
-      commit('SET_ERROR_MESSAGE', `Failed to add to cart: ${err}`)
     }finally{
       commit('SET_LOADING', false)
     }
   },
-  createCart({ commit }, payload) {
-    commit('SET_LOADING', true)
-
-    CartService.addCart(payload)
-    .then(({data}) => {
+  async createCart({ commit }, payload) {
+    // commit('SET_LOADING', true)
+    try{
+      const {data} = await CartService.addCart(payload)
       commit('PUSH_TO_USER_CARTS', data)
-      commit('SET_LOADING', false)
-    })
-    .catch(err=> {
-      commit('SET_LOADING', false)
+      // commit('SET_LOADING', false)
+    }catch(err){
       console.log(err.response);
-    })
+    }
   },
   async deleteCart({ commit }, id) {
     let totalPayment = this.state.users.user.totalPayment
@@ -64,9 +63,10 @@ export const actions = {
 
     try{
       const {data} = await CartService.removeCart(id)
+      console.log('delete: ', data);
       totalPayment-=data.totalPrice
       commit('SET_USER_TOTAL_PAYMENT', totalPayment)
-      commit('REMOVE_CARTS', data._id)
+      commit('REMOVE_CART', data._id)
       commit('SET_LOADING', false)
       
       return data
