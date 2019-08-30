@@ -65,18 +65,17 @@ export default {
         if (result.value) {
           ProductService
             .removeProduct(id)
-            .then(product => {
+            .then(({data}) => {
               Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',
                 'success'
               )
-              this.products = this.products.filter(el => {
-                if (el._id !== product._id) {
-                  return el
-                }
-              })
-              this.fetchProducts()
+              this.products = this.products.filter(product => product._id !== data._id)
+              
+              return {
+                products: this.products
+              }
             })
             .catch(err => {
               console.log(err);
