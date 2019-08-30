@@ -1,5 +1,7 @@
 import UserService from '@/services/UserService';
 import AuthService from '~/services/AuthService';
+import {getCookieByName} from '@/helpers/cookie'
+import {clearCookie} from '~/helpers/cookie'
 
 export const state = () => ({
   user: {
@@ -39,7 +41,15 @@ export const getters = {
 
 export const mutations = {
   SET_DEFAULT_STATE(state) {
-    state.user={}
+    state.user={
+      id:'',
+      name:'',
+      email: '',
+      role: '',
+      address: null,
+      phone: null,
+      totalPayment: 0
+    }
   },
   SET_IS_LOGGED_IN(state, payload) {
     state.isLoggedIn = payload
@@ -48,7 +58,6 @@ export const mutations = {
     state.isAdministrator = isAdmin
   },
   SET_USER_DATA(state, payload) {
-    console.log('set user ', state)
     if(payload) {
       state.user=payload
       state.isLoggedIn=true
@@ -91,14 +100,14 @@ export const actions = {
       'see you around :)',
       'success'
     )
-    localStorage.clear()
+    clearCookie()
     commit('SET_IS_LOGGED_IN', false)
     commit("SET_IS_ADMINISTRATOR", false)
     commit("SET_DEFAULT_STATE", false)
     this.$router.push('/')
   },
   async fetchUserData({ commit }) {
-    const id = localStorage.id
+    const id = getCookieByName('id')
 
     // commit('SET_LOADING', true)
     if(id) {
@@ -121,7 +130,7 @@ export const actions = {
     }
   },
   async updateUser({commit}, payload) {
-    const id = localStorage.id
+    const id = getCookieByName('id')
 
     if(id) {
       try{

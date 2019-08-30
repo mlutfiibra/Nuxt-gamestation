@@ -30,6 +30,7 @@
 </template>
 
 <script>
+  import {getCookieByName} from '@/helpers/cookie'
   import {
     mapActions,
     mapState
@@ -39,6 +40,7 @@
   } from '@/helpers/convertToRupiah'
 
   export default {
+    methods: { getCookieByName },
     data() {
       return {
         voucher: {
@@ -61,19 +63,19 @@
       ]),
       convertToRupiah,
       submitVoucherForm() {
-        if (localStorage.token) {
+        if ( getCookieByName('token') ) {
           if (this.user.role !== 'customer') {
             Swal.fire(
               'Only customer can buy product!',
               '',
               'warning'
             )
-          } else if (localStorage.token) {
+          } else {
             let payload = {
               productId: this.voucher._id,
               totalPrice: Number(this.voucher.price) * Number(this.quantity),
               quantity: this.quantity,
-              userId: localStorage.id
+              userId: getCookieByName('id')
             }
             Swal.fire(
               'Add to Cart!',
@@ -81,9 +83,9 @@
               'success'
             )
             this.createCart(payload)
-          } else {
-            this.$router.push('/login')
-          }
+          } 
+        }else {
+          this.$router.push('/login')
         }
       }
     },

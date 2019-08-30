@@ -104,6 +104,7 @@
 </template>
 
 <script>
+  import {getCookieByName} from '@/helpers/cookie'
   import {
     mapState,
     mapActions,
@@ -112,6 +113,7 @@
   } from 'vuex'
 
   export default {
+    methods: { getCookieByName },
     data() {
       return {
         searchValue: ''
@@ -122,7 +124,7 @@
         return this.$store.state.users.user
       },
       cartLength() {
-        return this.$store.state.carts ? this.$store.state.carts.carts.length : 0
+        return this.$store.state.carts ? this.$store.state.carts.length : 0
       },
       isLoggedIn() {
         return this.$store.state.users.isLoggedIn
@@ -131,11 +133,11 @@
         return this.$store.state.users.isAdministrator
       },
       userId() {
-        return localStorage.id
+        return getCookieByName('id')
       }
     },
     mounted() {
-      if (localStorage.token) {
+      if ( getCookieByName('token') ) {
         this.$store.dispatch('carts/fetchCarts')
       }
     },

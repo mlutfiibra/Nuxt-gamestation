@@ -1,13 +1,14 @@
 import myService from '.'
+import {getCookieByName} from '@/helpers/cookie'
 
 export default {
   fetchTransactions() {
-    myService.defaults.headers.common['token'] = localStorage.token
+    myService.defaults.headers.common['token'] = getCookieByName('token')    
 
     return myService.get(`/transactions`)
   },
   getUserTransactions() {
-    myService.defaults.headers.common['token'] = localStorage.token
+    myService.defaults.headers.common['token'] = getCookieByName('token')    
 
     return myService.get(`/transactions/user-transaction`)
   },
@@ -18,7 +19,7 @@ export default {
     return myService.post('/transactions', payload)
   },
   setTransactionToDelivered() {
-    myService.defaults.headers.common['token'] = localStorage.token
+    myService.defaults.headers.common['token'] = getCookieByName('token')    
     return myService.patch(`/transactions/change/delivered`)
   }
 }

@@ -59,6 +59,7 @@
 <script>
 import ProductService from '@/services/ProductService';
 import CartService from '@/services/CartService';
+import {getCookieByName} from '@/helpers/cookie'
 
 import {
   convertToRupiah
@@ -81,6 +82,7 @@ export default {
       ]
     }
   },
+  methods: { getCookieByName },
   data() {
     return {
       product: {
@@ -126,12 +128,12 @@ export default {
       }
     },
     buyItem(productId) {
-      if (localStorage.token) {
+      if (getCookieByName('token') && getCookieByName('id')) {
         let payload = {
           productId,
           totalPrice: this.totalPrice,
           quantity: this.quantity,
-          userId: localStorage.id
+          userId: getCookieByName('id')
         }
         Swal.fire(
           'Add to Cart!',

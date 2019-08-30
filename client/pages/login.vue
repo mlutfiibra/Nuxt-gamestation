@@ -48,7 +48,6 @@ export default {
     ...mapState(['user'])
   },
   methods: {
-    ...mapMutations(['SET_IS_LOGGED_IN', 'SET_USER_DATA']),
     ...mapActions(['fetchCarts']),
     async onSubmitLogin() {
       const {
@@ -64,8 +63,8 @@ export default {
           'success'
         )
         this.token = data.token
-        localStorage.token = data.token
-        localStorage.id = data.id
+        document.cookie = `token=${data.token}`
+        document.cookie = `id=${data.id}`
         this.fetchCarts()
 
         this.loginForm = {}

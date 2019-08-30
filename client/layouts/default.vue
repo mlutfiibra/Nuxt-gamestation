@@ -12,19 +12,21 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
+import {getCookieByName} from '@/helpers/cookie'
 
 export default {
   components: {
     Navbar,
     Footer
   },
+  methods: { getCookieByName },
   mounted() {
-    if(localStorage.token) {
-      this.$store.commit('SET_IS_LOGGED_IN', true)
+    if( getCookieByName('token') ) {
+      this.$store.commit('users/SET_IS_LOGGED_IN', true)
       this.$store.dispatch('users/fetchUserData')
-      this.$store.state.token = localStorage.token
+      this.$store.state.token = getCookieByName('token')
     }else{
-      this.$store.commit('SET_USER_DATA', {})
+      this.$store.commit('users/SET_DEFAULT_STATE')
     }
   },
 }
