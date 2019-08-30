@@ -71,7 +71,14 @@ import {
 export default {
   head() {
     return {
-      title: `Jual ${this.product.name} | Gamestation`
+      title: `Jual ${this.product.name} | Gamestation`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Situs jual beli online terlengkap dengan berbagai pilihan toko online terpercaya. Belanja online mudah dan menyenangkan di Gamestation. Pengiriman cepat.'
+        }
+      ]
     }
   },
   data() {
