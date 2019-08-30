@@ -4,7 +4,7 @@
   >
     <div style="height: 8rem">
       <img :src="data.picture_url ? data.picture_url : 'https://via.placeholder.com/150x150'"
-        class="card-img-top" :alt="data.name" style="max-height: 100%;">
+        class="card-img-top" :alt="data.name">
     </div>
     <div class="card-body" style="background-color: rgb(21, 21, 21); color: #fff !important;">
       <h6 class="card-title" style="height: 1rem;
