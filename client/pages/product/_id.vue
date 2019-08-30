@@ -69,6 +69,11 @@ import {
 } from 'vuex';
 
 export default {
+  head() {
+    return {
+      title: `Jual ${this.product.name} | Gamestation`
+    }
+  },
   data() {
     return {
       product: {

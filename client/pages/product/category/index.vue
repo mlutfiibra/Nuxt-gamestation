@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row mb-2" style="margin-top: 7em;">
-      <h5>{{$route.query.category.charAt(0).toUpperCase() + $route.query.category.slice(1)}} Games</h5>
+      <h5>{{categoryName}} Games</h5>
     </div>
     <div class="row">
       <div class="col-md-3" v-for="category in categoryItems" :key="category._id">
@@ -22,6 +22,11 @@
 
   export default {
     name: 'product-category',
+    head() {
+    return {
+        title: `Jual ${this.categoryName} Games | Gamestation`
+      }
+    },
     components: {
       Card,
     },
@@ -40,6 +45,11 @@
         }catch(err){
           console.log(err);
         }
+      }
+    },
+    computed: {
+      categoryName() {
+        return this.$route.query.category.charAt(0).toUpperCase() + this.$route.query.category.slice(1)
       }
     },
     mounted() {

@@ -39,6 +39,11 @@ import {
 
 export default {
   name: 'login',
+  head() {
+    return {
+      title: `Login | Gamestation`
+    }
+  },
   computed: {
     ...mapState(['user'])
   },

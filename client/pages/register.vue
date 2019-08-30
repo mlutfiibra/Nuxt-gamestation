@@ -36,6 +36,11 @@
 
   export default {
     name: 'register',
+    head() {
+    return {
+        title: `Register | Gamestation`
+      }
+    },
     methods: {
       async onSubmitRegister() {
         const {
