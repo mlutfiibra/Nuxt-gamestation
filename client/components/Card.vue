@@ -1,6 +1,7 @@
 <template>
   <div 
-      class="card" 
+      class="card"
+      style="overflow: hidden;"
   >
     <div style="height: 8rem">
       <img :src="data.picture_url ? data.picture_url : 'https://via.placeholder.com/150x150'"
