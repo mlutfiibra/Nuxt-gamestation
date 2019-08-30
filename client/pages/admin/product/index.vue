@@ -40,24 +40,18 @@ import {
 } from '@/helpers/convertToRupiah'
 
 export default {
-  data() {
-    return {
-      products: []
+  async asyncData({ error }) {
+    try{
+      const {data} = await ProductService.getProducts();
+      return {
+        products: data
+      }
+    }catch(err) {
+      console.log(err)
     }
-  },
-  mounted() {
-    this.fetchProducts()
   },
   methods: {
     convertToRupiah,
-    async fetchProducts() {
-      try{
-        const {data} = await ProductService.getProducts();
-        this.products = data
-      }catch(err) {
-        console.log(err)
-      }
-    },
     deleteProduct(id) {
       Swal.fire({
         title: 'Delete this product?',
