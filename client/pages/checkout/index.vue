@@ -50,8 +50,9 @@
       </div>
     </div>
 
-    <div class="mt-2 mb-5">
-      <button class="btn btn-success" @click="payNow">Pay</button>
+    <div style="display: flex" class="mt-2 mb-5">
+      <div style="margin-right:1rem">{{convertToRupiah(totalPayment)}}</div>
+      <button class="btn btn-success" @click="payNow">Checkout</button>
     </div>
   </div>
 </template>
@@ -63,7 +64,8 @@ import {
 import {
   mapState,
   mapActions,
-  mapMutations
+  mapMutations,
+  mapGetters
 } from 'vuex';
 
 export default {
@@ -81,6 +83,9 @@ export default {
     ...mapState({
       user: state => state.users.user,
       carts: state => state.carts.items
+    }),
+    ...mapGetters({
+      totalPayment: 'carts/totalPayment'
     })
   },
   watch: {
