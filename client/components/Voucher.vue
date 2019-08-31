@@ -6,7 +6,7 @@
       </div>
       <div class="form-group">
         <select id="game" class="form-control" v-model="voucher">
-          <option disabled value="{}">Choose Game</option>
+          <option disabled value="0">Choose Game</option>
           <option :key="index" v-for="(voucher, index) in voucherlist" :value="voucher">{{voucher.name}}</option>
         </select>
       </div>
@@ -43,12 +43,12 @@
     methods: { getCookieByName },
     data() {
       return {
-        voucher: {
-          id: '',
-          name: '',
-          price: 0,
-          totalPrice: ''
-        },
+        voucher: 0
+          // id: '',
+          // name: '',
+          // price: 0,
+          // totalPrice: ''
+        ,
         quantity: 0
       }
     },
