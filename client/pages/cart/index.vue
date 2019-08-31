@@ -21,9 +21,7 @@
             </div>
             <div class="col-md-2">
               <div class="card-body">
-                <div class="cart--delete" @click="deleteCart(cart._id)">
-                  Cancel Order
-                </div>
+                <div class="cart--delete" @click="deleteCart(cart._id)">Cancel Order</div>
               </div>
             </div>
           </div>
@@ -37,7 +35,7 @@
       <h5>Order Details</h5>
       <div class="my-card color-grey4" style="padding: 25px;">
         <div>
-          <h5>Total: {{user ? convertToRupiah(user.totalPayment) : convertToRupiah(0)}}</h5>
+          <h5>Total: {{totalPayment ? convertToRupiah(totalPayment) : convertToRupiah(0)}}</h5>
         </div>
         <button class="btn btn-danger" @click="goToCheckoutPage">Confirm Orders</button>
       </div>
@@ -46,24 +44,12 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+  import { mapState } from 'vuex'
   import CartService from '@/services/CartService'
-  import {
-    convertToRupiah
-  } from '@/helpers/convertToRupiah.js'
+  import { convertToRupiah } from '@/helpers/convertToRupiah.js'
 
   export default {
-    computed: {
-      ...mapState({
-        user: state => state.users.user,
-        carts: state => state.carts.carts
-      })
-    },
-    mounted() {
-      
-    },
     async fetch({ store, error, params }) {
-
       try {
         await store.dispatch('carts/fetchCarts')
       } catch (e) {
@@ -71,6 +57,15 @@ import {mapState} from 'vuex'
           statusCode: 503,
           message: 'Unable to fetch carts'
         })
+      }
+    },
+    computed: {
+      ...mapState({
+        user: state => state.users.user,
+        carts: state => state.carts.items
+      }),
+      totalPayment() {
+        return this.$store.getters['carts/totalPayment']
       }
     },
     methods: {
@@ -86,9 +81,9 @@ import {mapState} from 'vuex'
           confirmButtonText: 'Yes, delete it!'
         }).then(async (result) => {
           if (result.value) {
-            try{
+            try {
               await this.$store.dispatch('carts/deleteCart', id)
-            }catch(err){
+            } catch (err) {
               console.log(err)
             }
           }
@@ -99,7 +94,6 @@ import {mapState} from 'vuex'
       }
     },
   }
-
 </script>
 
 <style scope>

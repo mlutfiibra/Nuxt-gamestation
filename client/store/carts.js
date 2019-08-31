@@ -1,28 +1,35 @@
 import CartService from '@/services/CartService'
 import {SET_LOADING} from '.'
 
+export const state = () => ({
+  items: [],
+  loading: false
+})
+
 export const getters = {
   getUserCarts: state => {
-    return state.carts
+    return state.items
+  },
+  totalPayment: (state, getters) => {
+    return state.items.reduce((acc, item) => acc + (item.totalPrice * getters.cartsLength), 0)
+  },
+  cartsLength: state => {
+    return state.items.length
   }
 }
 
 export const mutations = {
   SET_CARTS(state, carts) {
-    state.carts = carts
+    state.items = carts
   },
   ADD_CARTS(state, payload) {
-    state.carts.push(payload)
+    state.items.push(payload)
   },
   REMOVE_CART(state, id) {
-    state.carts = state.carts.filter(cart => cart._id !== id)
+    state.items = state.items.filter(item => item._id !== id)
   },
   EMPTY_CARTS(state) {
-    state.carts = []
-  },
-  SET_USER_TOTAL_PAYMENT(state, totalPayment) {
-    // console.log(state)
-    // state.users.user.totalPayment=totalPayment
+    state.items = []
   },
   PUSH_TO_USER_CARTS(state, cart) {
     state.carts.push(cart)
@@ -32,14 +39,9 @@ export const mutations = {
 
 export const actions = {
   async fetchCarts({ commit }) {
-    let totalPayment = 0
     commit('SET_LOADING', true)
     try{
       const {data} = await CartService.getCarts()
-      data.forEach(cart => {
-        totalPayment+=cart.totalPrice
-      })
-      commit('SET_USER_TOTAL_PAYMENT', totalPayment)
       commit('SET_CARTS', data)      
     }catch(err) {
       console.log(err);
@@ -48,24 +50,22 @@ export const actions = {
     }
   },
   async createCart({ commit }, payload) {
-    // commit('SET_LOADING', true)
+    commit('SET_LOADING', true)
     try{
       const {data} = await CartService.addCart(payload)
       commit('PUSH_TO_USER_CARTS', data)
-      // commit('SET_LOADING', false)
+      commit('SET_LOADING', false)
     }catch(err){
       console.log(err.response);
     }
   },
   async deleteCart({ commit }, id) {
-    let totalPayment = this.state.users.user.totalPayment
     commit('SET_LOADING', true)
 
     try{
       const {data} = await CartService.removeCart(id)
       console.log('delete: ', data);
       totalPayment-=data.totalPrice
-      commit('SET_USER_TOTAL_PAYMENT', totalPayment)
       commit('REMOVE_CART', data._id)
       commit('SET_LOADING', false)
       

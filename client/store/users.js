@@ -2,6 +2,7 @@ import UserService from '@/services/UserService';
 import AuthService from '~/services/AuthService';
 import {getCookieByName} from '@/helpers/cookie'
 import {clearCookie} from '~/helpers/cookie'
+import {SET_LOADING} from '.'
 
 export const state = () => ({
   user: {
@@ -71,11 +72,12 @@ export const mutations = {
       state.user = {}
     }
   },
+  SET_LOADING
 }
 
 export const actions = {
   async login({commit}, payload) {
-    // commit('SET_LOADING', true)
+    commit('SET_LOADING', true)
     try{
       const {data} = await AuthService.login(payload)
 
@@ -91,7 +93,7 @@ export const actions = {
     }catch(err){
       console.log(err)
     }finally{
-      // commit('SET_LOADING', false)      
+      commit('SET_LOADING', false)      
     }
   },
   logout({commit}){
