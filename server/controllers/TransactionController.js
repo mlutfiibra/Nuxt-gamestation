@@ -76,15 +76,17 @@ class TransactionController {
 
     static changeStatus(req, res) {
         const status = req.params.status
+        const {transactionId} = req.body
 
         Transaction
         .findOneAndUpdate({
+            _id: transactionId,
             userId: req.decoded.id
         }, {
             status
-        })
-        .then(transactions=>{
-            res.status(200).json(stat)
+        }, {new:true})
+        .then(transaction=>{
+            res.status(200).json(transaction)
         })
         .catch(err => {
             res.status(500).json(err)
