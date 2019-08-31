@@ -20,8 +20,8 @@ export default {
 
     return myService.post('/transactions', payload)
   },
-  setTransactionToDelivered() {
+  setTransactionToDelivered(transactionId) {
     myService.defaults.headers.common['token'] = getCookieByName('token')    
-    return myService.patch(`/transactions/change/delivered`)
+    return myService.patch(`/transactions/change/delivered`, transactionId)
   }
 }

@@ -15,7 +15,7 @@
             <td>{{convertToRupiah(transaction.totalPayment)}}</td>
             <td>{{transaction.status}}</td>
             <td v-if="transaction.status==='paid'">
-              <button class="btn btn-danger" @click="delivered">Delivered</button>
+              <button class="btn btn-danger" @click="delivered(transaction._id)">Delivered</button>
             </td>
             <td v-else>
               <div>Complete</div>
@@ -37,15 +37,13 @@
   } from 'vuex';
 
   export default {
-    data() {
-      return {
-        transactions: []
-      }
-    },
     mounted() {
       this.fetchTransaction()
     },
     computed: {
+      ...mapState({
+        transactions: state => state.transactions.items
+      }),
       userAddress() {
         return this.$store.state.users.user.address
       }
@@ -54,15 +52,14 @@
       convertToRupiah,
       async fetchTransaction() {
         try{
-          const {data} = await TransactionService.getUserTransactions()
-          this.transactions = data
+          await this.$store.dispatch('transactions/fetchUserTransactions')
         }catch(err){
           console.log(err)
         }
       },
-      async delivered() {
+      async delivered(transactionId) {
         try{
-          await TransactionService.setTransactionToDelivered()
+          await this.$store.dispatch('transactions/changeTransactionToDelivered', transactionId)
           Swal.fire(
             'Thank you!',
             'success'
