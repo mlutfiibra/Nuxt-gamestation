@@ -124,7 +124,7 @@
         return this.$store.state.users.user
       },
       cartLength() {
-        return this.$store.state.carts ? this.$store.state.carts.length : 0
+        return this.$store.getters['carts/cartLength'] ? this.$store.getters['carts/cartLength'] : 0
       },
       isLoggedIn() {
         return this.$store.state.users.isLoggedIn

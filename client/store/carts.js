@@ -11,9 +11,9 @@ export const getters = {
     return state.items
   },
   totalPayment: (state, getters) => {
-    return state.items.reduce((acc, item) => acc + (item.totalPrice * getters.cartsLength), 0)
+    return state.items.reduce((acc, item) => acc + (item.totalPrice * getters.cartLength), 0)
   },
-  cartsLength: state => {
+  cartLength: state => {
     return state.items.length
   }
 }
