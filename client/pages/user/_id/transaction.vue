@@ -54,7 +54,7 @@
       convertToRupiah,
       async fetchTransaction() {
         try{
-          const {data} = await TransactionService.getTransactions()
+          const {data} = await TransactionService.getUserTransactions()
           this.transactions = data
         }catch(err){
           console.log(err)

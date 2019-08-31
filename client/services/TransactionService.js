@@ -3,7 +3,7 @@ import {getCookieByName} from '@/helpers/cookie'
 
 export default {
   fetchTransactions() {
-    myService.defaults.headers.common['token'] = getCookieByName('token')    
+    myService.defaults.headers.common['token'] = getCookieByName('token')
 
     return myService.get(`/transactions`)
   },
