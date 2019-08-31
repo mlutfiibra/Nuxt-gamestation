@@ -32,5 +32,13 @@ export const actions = {
     }catch(e){
       console.log(e)
     }
+  },
+  async addTransactions({commit}, payload) {
+    try{
+      const {data} = await TransactionService.addTransactions(payload)
+      commit('SET_TRANSACTION_ITEMS', data)
+    }catch(e){
+      console.log(e)
+    }
   }
 }

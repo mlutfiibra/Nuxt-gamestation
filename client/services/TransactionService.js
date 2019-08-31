@@ -16,6 +16,8 @@ export default {
     return myService.get(`/transactions/${id}`)
   },
   addTransactions(payload) {
+    myService.defaults.headers.common['token'] = getCookieByName('token')    
+
     return myService.post('/transactions', payload)
   },
   setTransactionToDelivered() {

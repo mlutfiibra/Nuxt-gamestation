@@ -95,7 +95,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET_USER_CARTS']),
     submitUserInformation() {
       let update = {
         address: this.deliveryForm.address,
@@ -116,9 +115,7 @@ export default {
           console.log(err);
         })
     },
-    payNow() {
-      api.defaults.headers.common['token'] = localStorage.token
-
+    async payNow() {
       let productId = []
       this.carts.forEach(cart => {
         productId.push(cart.productId)
@@ -127,24 +124,21 @@ export default {
       let payload = {
         userId: this.user._id,
         productId,
-        totalPayment: this.user.totalPayment
+        totalPayment: this.totalPayment
       }
-
-      api
-        .post(`/transactions`, payload)
-        .then(transaction => {
-          let emptyCarts = []
-          Swal.fire(
-            'Transaction Success!',
-            'Thank you and wait for your goods to come~',
-            'success'
-          )
-          this.SET_USER_CARTS(emptyCarts)
-          this.$router.push('/')
-        })
-        .catch(err => {
-          console.log(err.response);
-        })
+      try{
+        const transaction = await this.$store.dispatch('transactions/addTransactions', payload)
+        let emptyCarts = []
+        Swal.fire(
+          'Transaction Success!',
+          'Thank you and wait for your goods to come~',
+          'success'
+        )
+        this.$store.commit('carts/SET_CARTS', emptyCarts)
+        this.$router.push('/')
+      }catch(err){
+        console.log(err);
+      }
     }
   },
 }
