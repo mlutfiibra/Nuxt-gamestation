@@ -13,19 +13,21 @@
       </div>
       <form @submit.prevent="submitUserInformation">
         <div>
-          <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Address" label-for="user-address">
-            <b-form-input id="user-address" size="md" v-model.trim="user.address"></b-form-input>
-          </b-form-group>
-          <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Phone" label-for="user-phone">
-            <b-form-input id="user-phone" size="md" v-model.trim="user.phone"></b-form-input>
-          </b-form-group>
+          <div class="form-group">
+            <input id="user-email" v-model.trim="deliveryForm.address" type="text" placeholder="Address" class="form-control"
+                aria-autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <input id="user-email" v-model.trim="deliveryForm.phone" type="text" placeholder="Phone" class="form-control"
+                aria-autocomplete="off" />
+          </div>
         </div>
         <button class="btn btn-primary right" type="submit">Save Change</button>
       </form>
     </div>
 
     <div class="row mt-4">
-      <h5 class="col-md-12">Your Carts</h5>
+      <h5 class="col-md-12">Checkout Product</h5>
     </div>
     <div v-for="(cart, index) in carts" :key="index" class="my-card color-grey4">
       <div class="row">
@@ -55,98 +57,91 @@
 </template>
 
 <script>
-// import api from '@/api/localapi'
-// import {
-//   convertToRupiah
-// } from '@/helpers/convertToRupiah'
-// import {
-//   mapState,
-//   mapActions,
-//   mapMutations
-// } from 'vuex';
+import {
+  convertToRupiah
+} from '@/helpers/convertToRupiah'
+import {
+  mapState,
+  mapActions,
+  mapMutations
+} from 'vuex';
 
-// export default {
-//   data() {
-//     return {
-//       transactions: [],
-//       cities: [],
-//       address: ''
-//     }
-//   },
-//   computed: {
-//     ...mapState(['user', 'carts'])
-//   },
-//   methods: {
-//     ...mapActions(['updateUser', 'setUserData']),
-//     ...mapMutations(['SET_USER_CARTS']),
-//     submitUserInformation() {
-//       let update = {
-//         address: this.user.address,
-//         phone: this.user.phone
-//       }
-//       this.updateUser(update)
-//     },
-//     fetchTransaction() {
-//       api.defaults.headers.common['token'] = localStorage.token
+export default {
+  data() {
+    return {
+      transactions: [],
+      cities: [],
+      deliveryForm: {
+        address: '',
+        phone: ''
+      }
+    }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.users.user,
+      carts: state => state.carts.items
+    })
+  },
+  watch: {
+    user() {
+      this.deliveryForm.address = this.user.address
+      this.deliveryForm.phone = this.user.phone
+    }
+  },
+  methods: {
+    ...mapMutations(['SET_USER_CARTS']),
+    submitUserInformation() {
+      let update = {
+        address: this.deliveryForm.address,
+        phone: this.deliveryForm.phone
+      }
+      this.$store.dispatch('users/updateUserData', update)
+    },
+    convertToRupiah,
+    fetchCities() {
+      api.defaults.headers.common['key'] = 'dd4927c879c8016e2679a017eda70396'
 
-//       api
-//         .get('/transactions')
-//         .then(({
-//           data
-//         }) => {
-//           this.transactions = data[0]
-//         })
-//         .catch(err => {
-//           console.log(err);
-//         })
-//     },
-//     convertToRupiah,
-//     fetchCities() {
-//       api.defaults.headers.common['key'] = 'dd4927c879c8016e2679a017eda70396'
+      api
+        .get('https://api.rajaongkir.com/starter/city')
+        .then(cities => {
+          this.cities = cities.rajaongkir.results
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    },
+    payNow() {
+      api.defaults.headers.common['token'] = localStorage.token
 
-//       api
-//         .get('https://api.rajaongkir.com/starter/city')
-//         .then(cities => {
-//           this.cities = cities.rajaongkir.results
-//         })
-//         .catch(err => {
-//           console.log(err);
-//         })
-//     },
-//     payNow() {
-//       api.defaults.headers.common['token'] = localStorage.token
+      let productId = []
+      this.carts.forEach(cart => {
+        productId.push(cart.productId)
+      })
 
-//       let productId = []
-//       this.carts.forEach(cart => {
-//         productId.push(cart.productId)
-//       })
+      let payload = {
+        userId: this.user._id,
+        productId,
+        totalPayment: this.user.totalPayment
+      }
 
-//       let payload = {
-//         userId: this.user._id,
-//         productId,
-//         totalPayment: this.user.totalPayment
-//       }
-
-//       api
-//         .post(`/transactions`, payload)
-//         .then(transaction => {
-//           let emptyCarts = []
-//           Swal.fire(
-//             'Transaction Success!',
-//             'Thank you and wait for your goods to come~',
-//             'success'
-//           )
-//           this.SET_USER_CARTS(emptyCarts)
-//           this.$router.push('/')
-//         })
-//         .catch(err => {
-//           console.log(err.response);
-//         })
-//     },
-//     mounted() {
-//       this.setUserData()
-//     },
-//   },
-// }
+      api
+        .post(`/transactions`, payload)
+        .then(transaction => {
+          let emptyCarts = []
+          Swal.fire(
+            'Transaction Success!',
+            'Thank you and wait for your goods to come~',
+            'success'
+          )
+          this.SET_USER_CARTS(emptyCarts)
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err.response);
+        })
+    }
+  },
+}
 
 </script>

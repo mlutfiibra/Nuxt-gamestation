@@ -10,7 +10,7 @@ export default {
 
     return myService.get(`users/${id}`)
   },
-  updateUser(payload) {
+  updateUser(payload, id) {
     myService.defaults.headers.common['token'] = getCookieByName('token')
 
     return myService.put(`users/${id}`, payload)

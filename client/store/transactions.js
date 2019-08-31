@@ -19,9 +19,15 @@ export const mutations = {
 export const actions = {
   async fetchTransactions({commit}) {
     try{
-      console.log('amsfsfdf');
       const {data} = await TransactionService.fetchTransactions()
-      console.info('actions', data);
+      commit('SET_TRANSACTION_ITEMS', data)
+    }catch(e){
+      console.log(e)
+    }
+  },
+  async fetchUserTransactions({commit}) {
+    try{
+      const {data} = await TransactionService.getUserTransactions()
       commit('SET_TRANSACTION_ITEMS', data)
     }catch(e){
       console.log(e)

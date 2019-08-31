@@ -131,14 +131,14 @@ export const actions = {
       console.log('Cannot get id');
     }
   },
-  async updateUser({commit}, payload) {
-    const id = getCookieByName('id')
-
-    if(id) {
+  async updateUserData({commit}, payload) {
+    const userId = getCookieByName('id')
+    if(userId) {
       try{
-        const {data} = myService.updateUser(payload)
+        const {data} = await UserService.updateUser(payload, userId)
         commit("SET_USER_DATA", data)
       }catch(err){
+        console.log(err)
         if(err.response.data.message === 'jwt expired') {
           commit('SET_DEFAULT_STATE')
           localStorage.clear()
