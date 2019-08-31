@@ -31,8 +31,12 @@ export const mutations = {
   EMPTY_CARTS(state) {
     state.items = []
   },
-  PUSH_TO_USER_CARTS(state, cart) {
-    state.carts.push(cart)
+  PUSH_TO_USER_CARTS(state, payload) {
+    if(state.items.some(item => item._id === payload._id)) {
+      state.items[state.items.findIndex(i => i._id === payload._id)].quantity++
+    }else{
+      state.items.push(payload)
+    }
   },
   SET_LOADING
 }

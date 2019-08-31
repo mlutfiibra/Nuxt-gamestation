@@ -96,7 +96,7 @@ export default {
   computed: {
     ...mapState(['user']),
     isAdministrator() {
-      return this.$store.state.users.isAdministrator
+      return this.$store.getters['users/isAdministrator']
     }
   },
   mounted() {
