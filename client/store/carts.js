@@ -64,8 +64,6 @@ export const actions = {
 
     try{
       const {data} = await CartService.removeCart(id)
-      console.log('delete: ', data);
-      totalPayment-=data.totalPrice
       commit('REMOVE_CART', data._id)
       commit('SET_LOADING', false)
       

@@ -70,8 +70,8 @@
     },
     methods: {
       convertToRupiah,
-      deleteCart(id) {
-        Swal.fire({
+      async deleteCart(id) {
+        let result = await Swal.fire({
           title: 'Remove from carts?',
           text: "You won't be able to revert this!",
           type: 'warning',
@@ -79,15 +79,15 @@
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
           confirmButtonText: 'Yes, delete it!'
-        }).then(async (result) => {
-          if (result.value) {
-            try {
-              await this.$store.dispatch('carts/deleteCart', id)
-            } catch (err) {
-              console.log(err)
-            }
-          }
         })
+
+        if (result.value) {
+          try {
+            await this.$store.dispatch('carts/deleteCart', id)
+          } catch (err) {
+            console.log(err)
+          }
+        }
       },
       goToCheckoutPage() {
         this.$router.push('/checkout')
